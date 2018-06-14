@@ -4,7 +4,7 @@
 	
 	License:
 		VoxelCode is licensed to all under the MIT license,
-		which can be found on the VoxelCode GitHub page:
+		which can be found on the VoxelCode GitHub page: https://github.com/kippllo/VoxelCode
 */
 
 var scene = new THREE.Scene();
