@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>VoxelCode</title>
+		<link href="../../css/UI.css" type="text/css" rel="stylesheet" />
+		<link href="../../css/CodeArea.css" type="text/css" rel="stylesheet" />
+	</head>
+
+	<body onload="updateLineCount()">
+		
+		<nav>
+			<ul class="nav">
+				<li class="nav"><a href="#" class="current">VoxelCode</a></li>
+				<li class="nav"><a href="../documentation/doc.html" class="navLink">Documentation</a></li>
+				<li class="nav"><a href="../examples/examples.html" class="navLink">Examples</a></li>
+			</ul>
+		</nav>
+
+		<div class="UI">
+			<canvas id="graphicsCanvas" width="600" height="600"></canvas>
+		</div>
+
+		<div class="codeArea">
+			<textarea class="lineCount" id="lineCounter" rows="30" cols="2" wrap="off" spellcheck="false" readonly>0.</textarea>
+			<textarea class="editor" id="inputText" rows="30" cols="90" wrap="off" autofocus="autofocus" spellcheck="false">filename:pikachu
+
+
+*Base Body Cube
+cube[0,0,0, 10,9,12, 255,255,0]
+
+
+*Brown Strips
+cube[0,8,6, 10,9,7, 139,69,19]
+cube[0,8,9, 10,9,10, 139,69,19]
+
+
+*ears
+cube[2,9,2, 3,15,2, 255,255,0]
+cube[2,14,2, 3,15,2, 0,0,0]
+cube[8,9,2, 7,15,2, 255,255,0]
+cube[8,14,2, 7,15,2, 0,0,0]
+
+
+*Feet
+cube[1,-1,2, 3,-3,3, 255,255,0]
+cube[1,-3,1, 3,-3,1, 255,255,0]
+
+cube[9,-1,2, 7,-3,3, 255,255,0]
+cube[9,-3,1, 7,-3,1, 255,255,0]
+
+cube[1,-1,9, 3,-3,10, 255,255,0]
+cube[1,-3,8, 3,-3,8, 255,255,0]
+
+cube[9,-1,9, 7,-3,10, 255,255,0]
+cube[9,-3,8, 7,-3,8, 255,255,0]
+
+
+*Tail
+cube[4,8,13, 6,13,13, 255,255,0]
+cube[6,11,13, 10,13,13, 255,255,0]
+cube[7,14,13, 10,18,13, 255,255,0]
+
+
+*cheeks and mouth
+cube[1,2,0, 2,3,0, 255,0,0]
+cube[4,2,0, 6,3,0, 150,0,0]
+cube[4,2,0, 6,2,0, 255,192,203]
+cube[8,2,0, 9,3,0, 255,0,0]
+
+*nose
+voxel[5,4,0, 0,0,0]
+
+*eyes
+cube[2,6,0, 3,7,0, 0,0,0]
+voxel[3,7,0]
+cube[8,7,0, 7,6,0, 0,0,0]
+voxel[7,7,0]</textarea>
+		</div>
+
+		<br>
+		<div class="UIButtons">
+			<input type="submit" class="exportButton" id="previewButton" value="Preview">
+			<input type="submit" class="exportButton" id="compileButton" value="Compile">
+			<input type="submit" class="exportButton" id="exportSTL" value="Export STL">
+			<input type="submit" class="exportButton" id="exportOBJ" value="Export OBJ">
+		</div>
+
+
+		<script src="../../js/dependencies/three.js"></script>
+		<script src="../../js/dependencies/OrbitControls.js"></script>
+
+		<!-- My Scripts Below: -->
+		<script src="../../js/graphics.js"></script>
+		<script src="../../js/UI.js"></script>
+		<script src="../../js/CodeArea.js"></script>
+		<script src="../../js/voxelCode.js"></script>
+	</body>
+</html>

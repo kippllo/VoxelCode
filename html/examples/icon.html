@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>VoxelCode</title>
+		<link href="../../css/UI.css" type="text/css" rel="stylesheet" />
+		<link href="../../css/CodeArea.css" type="text/css" rel="stylesheet" />
+	</head>
+
+	<body onload="updateLineCount()"> <!-- Maybe later add inside the onload a call to render the preview... -->
+		
+		<nav>
+			<ul class="nav">
+				<li class="nav"><a href="#" class="current">VoxelCode</a></li>
+				<li class="nav"><a href="../documentation/doc.html" class="navLink">Documentation</a></li>
+				<li class="nav"><a href="../examples/examples.html" class="navLink">Examples</a></li>
+			</ul>
+		</nav>
+
+		<div class="UI">
+			<canvas id="graphicsCanvas" width="600" height="600"></canvas>
+		</div>
+
+		<div class="codeArea">
+			<textarea class="lineCount" id="lineCounter" rows="30" cols="2" wrap="off" spellcheck="false" readonly>0.</textarea>
+			<textarea class="editor" id="inputText" rows="30" cols="90" wrap="off" autofocus="autofocus" spellcheck="false">filename:icon
+grid:on
+
+fill[0,0,0, 0,0,5]{
+voxel[0,0,0, 225,0,0]
+}
+
+fill[0,0,0, 5,0,0]{
+voxel[0,0,0, 225,0,0]
+}
+
+fill[0,0,5, 5,0,0]{
+voxel[0,0,0, 225,0,0]
+}
+
+*Cube and a voxel to fill in blank space on first level
+cube[0,0,0, 2,0,3, 225,0,0]
+voxel[3,0,1, 225,0,0]
+
+
+*Level 2
+fill[0,1,0, 0,1,4]{
+voxel[0,0,0, 225,0,0]
+}
+
+fill[0,1,0, 4,1,0]{
+voxel[0,0,0, 225,0,0]
+}
+
+fill[0,1,4, 4,1,0]{
+voxel[0,0,0, 225,0,0]
+}
+
+*Cube to fill in blank space on first level
+cube[1,1,1, 2,1,2, 225,0,0]
+
+
+
+*Level 3
+fill[0,2,0, 0,2,3]{
+voxel[0,0,0, 255,225,0]
+}
+
+fill[0,2,0, 3,2,0]{
+voxel[0,0,0, 255,225,0]
+}
+
+fill[0,2,3, 3,2,0]{
+voxel[0,0,0, 255,225,0]
+}
+
+*Voxel to fill in blank space on first level
+voxel[1,2,1, 255,225,0]
+
+
+*Level 4
+fill[0,3,0, 0,3,2]{
+voxel[0,0,0, 255,225,0]
+}
+
+fill[0,3,0, 2,3,0]{
+voxel[0,0,0, 255,225,0]
+}
+
+fill[0,3,2, 2,3,0]{
+voxel[0,0,0, 255,225,0]
+}
+
+*Level 5
+fill[0,4,0, 0,4,1]{
+voxel[0,0,0, 255,225,0]
+}
+
+fill[0,4,0, 1,4,0]{
+voxel[0,0,0, 255,155,0]
+}
+
+fill[0,4,1, 1,4,0]{
+voxel[0,0,0, 255,155,0]
+}
+
+*Voxel on the top
+voxel[0,5,0, 255,155,0]</textarea>
+		</div>
+
+		<br>
+		<div class="UIButtons">
+			<input type="submit" class="exportButton" id="previewButton" value="Preview">
+			<input type="submit" class="exportButton" id="compileButton" value="Compile">
+			<input type="submit" class="exportButton" id="exportSTL" value="Export STL">
+			<input type="submit" class="exportButton" id="exportOBJ" value="Export OBJ">
+		</div>
+
+
+		<script src="../../js/dependencies/three.js"></script>
+		<script src="../../js/dependencies/OrbitControls.js"></script>
+
+		<!-- My Scripts Below: -->
+		<script src="../../js/graphics.js"></script>
+		<script src="../../js/UI.js"></script>
+		<script src="../../js/CodeArea.js"></script>
+		<script src="../../js/voxelCode.js"></script>
+	</body>
+</html>
