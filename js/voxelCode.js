@@ -9,7 +9,7 @@
 		VoxelCode supports exporting to the stl file format for 3D printing and obj file format for use in other programs, such as game engines.
 	License:
 		VoxelCode is licensed to all under the MIT license,
-		which can be found on the VoxelCode GitHub page:
+		which can be found on the VoxelCode GitHub page: https://github.com/kippllo/VoxelCode
 */
 
 
