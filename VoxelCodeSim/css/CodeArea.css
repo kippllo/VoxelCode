@@ -1,0 +1,48 @@
+
+.UI {
+	display: inline; /* inline is needed align the element side-by-side with the codeArea. */
+}
+
+div.codeArea {
+	display: inline-block; /* inline-block is needed align the elements side-by-side. */
+	width: 48%;
+}
+
+div.codeArea textarea {
+	font-family: "Courier New", monospace;
+	line-height: 1; /* Note: "line-height" and "font-size" control how many pixels each line takes up height-wise. If line-height is set to 1, than the pixel height of each line is the font-size. */
+	font-size: 20px;
+
+	/* Putting "text-align: left;" here will overrules other text-align rules! So, don't do it! */
+	resize: none;
+	border-style: none;
+
+	padding-bottom: 10px; /* This padding is applied to both the lineCount and the codeArea if set here! It is needed so the scroll in the div does not make the whole window scroll. */
+}
+
+
+div.codeArea textarea:focus {
+	outline: none;
+}
+
+textarea.lineCount {
+	/* Width is controlled by "cols" in javascript. */
+	margin-left: 5px;
+	margin-right: 0px;
+
+	overflow-y: hidden; /* For some reason chrome and safari will move the lineCount down if "overflow: hidden;" is used but not if "overflow-y: hidden;" is used. Kinda like the problem here: https://stackoverflow.com/questions/20566710/overflowhidden-displayinline-block-moves-text-upwards */
+
+	text-align: right; /* This is so the numbers keep a consistent gap between the lineCount and the codeArea. */
+}
+
+textarea.editor {
+	width: 80%; /* This property is also adjusted in the js. */
+	text-align: left;
+}
+
+
+@media (max-width: 750px) {
+	div.codeArea {
+		width: 100%;
+	}
+}
