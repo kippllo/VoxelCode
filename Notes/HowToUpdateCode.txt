@@ -4,3 +4,4 @@ Steps:
 2. Make changes to VoxelCodeSim source code.
 3. Record changes for release notes.
 4. Push changes and if ready for a new release, publish one.
+5. Push new Sim version to itch.io
