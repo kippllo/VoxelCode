@@ -1,6 +1,6 @@
 /*
 	Made by Rhett Thompson. ©2018 Rhett Thompson
-	V 1.0
+	V 1.0.1
 
 	Description:
 		VoxelCode is a voxel editor built in pure JavaScript with its only dependency being Three.js which is use for graphics rendering.
@@ -967,26 +967,44 @@ function calculate3DLine(x1,y1,z1, x2,y2,z2){
 	var vector = [];
 	var linePoints = [];
 
-	// Check to make sure points are smallest to largest, so the loops work right later.
-	if (x1 != x2) { // First check to see if x values are the same for the two points.
-		if(x1 > x2){
-			x2 = [x1, x1 = x2][0]; //Swap two vars in one line help: https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
-			y2 = [y1, y1 = y2][0];
-			z2 = [z1, z1 = z2][0];
-		}
-	} else if (y1 != y2) { // Sort by y values if x values are the same in both points.
-		if(y1 > y2){
-			x2 = [x1, x1 = x2][0];
-			y2 = [y1, y1 = y2][0];
-			z2 = [z1, z1 = z2][0];
-		}
-	} else if (z1 != z2) { // Sort by z values if x & y values are the same in both points.
-		if(z1 > z2){
-			x2 = [x1, x1 = x2][0];
-			y2 = [y1, y1 = y2][0];
-			z2 = [z1, z1 = z2][0];
-		}
+	
+	
+	// What we are doing here is checking to make sure the largest numerical value, for each point, is selected. 
+	// Then we are comparing those points, based on these largest numbers that we just found, to see which contains the largest value over all the axes (x,y, and z).
+	// Finding the point that has the largest axis value will allow us to calculate line points based on a positive number instead of negative ones.
+	// I chose to do this so it would be easy to find which axis should be used to determine how we step through the 3D line. The axis with the biggest value is used.
+	// The end effect of all this is a smooth line with logical points in 3D space.
+
+	// I use "biggest1 = x1" to set an initial value, so the initial value will always be based on real numbers that are in the parameters.
+	var biggest1 = x1;
+	var biggest2 = x2;
+
+
+	// No need to check x since x is the initial value.
+	if (y1 > biggest1) {biggest1 = y1;}
+	if (z1 > biggest1) {biggest1 = z1;}
+
+	if (y2 > biggest2) {biggest2 = y2;}
+	if (z2 > biggest2) {biggest2 = z2;}
+
+	// Check to make sure points are smallest to largest, so the loops work right later. (I do "point2 - point1" so having point2 be largest will produce positive variables.)
+	// If the first point (which is supposed to be smaller) is the biggest point, switch the two points.
+	if (biggest1 > biggest2) {
+		// Clean, easy to follow, method for swapping two variables.
+		var xTemp = x1;
+		var yTemp = y1;
+		var zTemp = z1;
+
+		x1 = x2;
+		y1 = y2;
+		z1 = z2;
+
+		x2 = xTemp;
+		y2 = yTemp;
+		z2 = zTemp;
 	}
+	
+	
 
 	// Calculate Vector
 	vector[0] = x2 - x1;
