@@ -1,0 +1,6 @@
+Steps:
+
+1. Make changes to regular source code. (Be sure to update in code version numbers)
+2. Make changes to VoxelCodeSim source code.
+3. Record changes for release notes.
+4. Push changes and if ready for a new release, publish one.
