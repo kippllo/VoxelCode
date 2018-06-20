@@ -968,52 +968,40 @@ function calculate3DLine(x1,y1,z1, x2,y2,z2){
 	var linePoints = [];
 
 	
-	
-	// What we are doing here is checking to make sure the largest numerical value, for each point, is selected. 
-	// Then we are comparing those points, based on these largest numbers that we just found, to see which contains the largest value over all the axes (x,y, and z).
-	// Finding the point that has the largest axis value will allow us to calculate line points based on a positive number instead of negative ones.
-	// I chose to do this so it would be easy to find which axis should be used to determine how we step through the 3D line. The axis with the biggest value is used.
-	// The end effect of all this is a smooth line with logical points in 3D space.
-
-	// I use "biggest1 = x1" to set an initial value, so the initial value will always be based on real numbers that are in the parameters.
-	var biggest1 = x1;
-	var biggest2 = x2;
-
-
-	// No need to check x since x is the initial value.
-	if (y1 > biggest1) {biggest1 = y1;}
-	if (z1 > biggest1) {biggest1 = z1;}
-
-	if (y2 > biggest2) {biggest2 = y2;}
-	if (z2 > biggest2) {biggest2 = z2;}
-
-	// Check to make sure points are smallest to largest, so the loops work right later. (I do "point2 - point1" so having point2 be largest will produce positive variables.)
-	// If the first point (which is supposed to be smaller) is the biggest point, switch the two points.
-	if (biggest1 > biggest2) {
-		// Clean, easy to follow, method for swapping two variables.
-		var xTemp = x1;
-		var yTemp = y1;
-		var zTemp = z1;
-
-		x1 = x2;
-		y1 = y2;
-		z1 = z2;
-
-		x2 = xTemp;
-		y2 = yTemp;
-		z2 = zTemp;
-	}
-	
-	
-
 	// Calculate Vector
 	vector[0] = x2 - x1;
 	vector[1] = y2 - y1;
 	vector[2] = z2 - z1;
 
 
+	
+	// Note: The vector does not need to be changed if the starting and ending points are swapped later (or if they aren't).
+	
 	// Calculate line points
-	if ( x1 != x2 && vector[0] >= vector[1] && vector[0] >= vector[2] ){ // If the x values are not the same step, through by x values to find the points. And only use x to step if the two x-points have the greatest(or equal) distance between the points. This greatest difference/distance will allow the line points to be close together and smooth. Remember the vector array holds the calculated differences in distance. Then, if the x distance is not the greatest, do the same check for Y & Z.
+	// I need to chose which axis the 3D line will calculate points from, based on which axis has the greatest distance between the two points, not which axis-value is the largest (which is what I used to be doing).
+	if ( Math.abs(vector[0]) >= Math.abs(vector[1]) && Math.abs(vector[0]) >= Math.abs(vector[2]) ){ // Only use x to step through the 3D Line points if the two x-points have the greatest(or equal) absolute distance between the points. This greatest difference/distance will allow the line points to be close together and smooth. Remember the vector array holds the calculated differences in distance. Then, if the x distance is not the greatest, do the same check for Y & Z.
+
+		// Make sure the biggest x-value is in point2. If it is not, switch the two points. This is import so that the for-loop below will not infinitely loop.
+		if(x1 > x2){
+			// Clean easy to follow method for swapping two variables.
+			var xTemp = x1;
+			var yTemp = y1;
+			var zTemp = z1;
+
+			x1 = x2;
+			y1 = y2;
+			z1 = z2;
+
+			x2 = xTemp;
+			y2 = yTemp;
+			z2 = zTemp;
+		}
+
+
+		// Calculate 3D Line points based on x-axis.
+		// Whatever axis the 3D Line points are based off of needs to have a positive distance between the two points.
+		// In other words the difference(x2-x1) of the axis needs to be positive so that the "x++" that I use below will actual reach "x2" and not loop infinitely.
+		// It is important for the larger number to be point2 ("x2") here so the for-loop will know when to stop. If point1 ("x1") started bigger than "x2" the loop would continue forever.
 		for (var x = x1, i = 0; x != x2; x++, i++) {
 			var t = (x - x1)/vector[0];
 
@@ -1022,7 +1010,23 @@ function calculate3DLine(x1,y1,z1, x2,y2,z2){
 			linePoints[i][1] = vector[1] * t + y1;
 			linePoints[i][2] = vector[2] * t + z1;
 		}
-	} else if ( y1 != y2  && vector[1] >= vector[0] && vector[1] >= vector[2] ){ // Step on the y-axis if x is constant between both points, and if the x distance is not the greatest.
+	} else if ( Math.abs(vector[1]) >= Math.abs(vector[0]) && Math.abs(vector[1]) >= Math.abs(vector[2]) ){ // Step through 3D Line points on the y-axis if the x distance is not the greatest.
+
+		// Make sure the biggest y-value is in point2. If it is not switch the two points.
+		if(y1 > y2){
+			var xTemp = x1;
+			var yTemp = y1;
+			var zTemp = z1;
+
+			x1 = x2;
+			y1 = y2;
+			z1 = z2;
+
+			x2 = xTemp;
+			y2 = yTemp;
+			z2 = zTemp;
+		}
+
 		for (var y = y1, i = 0; y != y2; y++, i++) {
 			var t = (y - y1)/vector[1];
 
@@ -1031,7 +1035,23 @@ function calculate3DLine(x1,y1,z1, x2,y2,z2){
 			linePoints[i][1] = y;
 			linePoints[i][2] = vector[2] * t + z1;
 		}
-	} else if ( z1 != z2  && vector[2] >= vector[0] && vector[2] >= vector[1] ){ // Step on the z-axis if x & y are constant between both points, and if the x & y distances are not the greatest.
+	} else if ( Math.abs(vector[2]) >= Math.abs(vector[0]) && Math.abs(vector[2]) >= Math.abs(vector[1]) ){ // Step through 3D Line points on the z-axis if the x & y distances are not the greatest.
+
+		// Make sure the biggest z-value is in point2. If it is not switch the two points.
+		if(z1 > z2){
+			var xTemp = x1;
+			var yTemp = y1;
+			var zTemp = z1;
+
+			x1 = x2;
+			y1 = y2;
+			z1 = z2;
+
+			x2 = xTemp;
+			y2 = yTemp;
+			z2 = zTemp;
+		}
+
 		for (var z = z1, i = 0; z != z2; z++, i++) {
 			var t = (z - z1)/vector[2];
 
@@ -1040,9 +1060,8 @@ function calculate3DLine(x1,y1,z1, x2,y2,z2){
 			linePoints[i][1] = vector[1] * t + y1;
 			linePoints[i][2] = z;
 		}
-	} else { // If the two points are the same point, just make i = 0 so that one point can be add to the array.
-		var i = 0;
 	}
+	
 
 	// Insert the final end point.
 	linePoints[i] = [];
