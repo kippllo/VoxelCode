@@ -84,6 +84,12 @@ div.E3:hover {
 	background-image: url("../images/icon_small.gif");
 }
 
+div.E4 {
+	background-image: url("../images/miku.png");
+}
+div.E4:hover {
+	background-image: url("../images/miku.gif");
+}
 
 
 /* Responsive section for mobile devices */
